@@ -1,0 +1,30 @@
+import model from '../models';
+
+            const { Staff } = model;
+
+            class Staffs {
+              static create(req, res) {
+                const { email, firstname, lastname, position, phonenumber } = req.body
+                const { bussinessId } = req.params
+                return Staff
+                  .create({
+                    email,
+                    firstname,
+                    lastname,
+                    position,
+                    phonenumber,
+	            bussinessId
+                  })
+                  .then(staff => res.status(201).send({
+                    message: `Your staff member with the lastname ${lastname} has been created successfully `,
+                    staff
+                  }))
+                }
+	      static list(req, res) {
+              return Staff
+                .findAll()
+                .then(staffs => res.status(200).send(staffs));
+            }
+            }
+
+            export default Staffs
